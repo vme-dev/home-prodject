@@ -23,23 +23,28 @@ class Modal extends React.Component {
     }
 
     render() {
-    	
     	var curDate = this.props.time.curentDate.getDate() +"."+this.props.time.curentDate.getMonth()+"."+this.props.time.curentDate.getFullYear();
 console.log(curDate);
+var form = <form onSubmit={this.onSubmit}>
+                    <p><label> Логин: <input type="text" name="login" onChange={this.onLoginChange}/></label></p>
+                    <p><input type="button" onClick={ () =>{ this.props.onSend(curDate,this.login);this.props.onTextClick() }} />x</p>
+                  </form>;
+
+var err =  <div> The time is passed</div>;
         return ReactDOM.createPortal( 
      		<div className="modal_wrap">
-	     		<div className="modal_window">
-	            	<h1 > Week < /h1> 
-	            	<form onSubmit={this.onSubmit}>
-	          			<p><label> Логин: <input type="text" name="login" 
-	                           onChange={this.onLoginChange}/></label></p>
-	  					<p><label> Пароль: <input type="password" name="password" value={"s"}
-	                            onChange={console.log("!")}/></label></p>
-	          			<p><input type="button" onClick={ () =>{ this.props.onSend(curDate,this.login);this.props.onTextClick() }} />x</p>
-        			</form>
-	            	<button onClick={() => this.props.onTextClick()}> CLOSE </button>
-	        	</div>
-        	</div>
+
+          
+  	     		<div className="modal_window">
+  	            	<h1 > Modal window </h1> 
+
+                  {( this.props.time.nowDate.getTime() > this.props.time.curentDate.getTime() )?err:form}
+
+  	            	<button onClick={() => this.props.onTextClick()}> CLOSE </button>
+  	        	</div>
+           
+          	</div>
+
     		,
             document.getElementById('portal')
         );
@@ -47,19 +52,13 @@ console.log(curDate);
 
 }
 
-function f_text (text="qwer") {
-  return {
-    type: 'M',
-    text:text
-  }
-};
 
 export default connect(
   (store) => {return {
     time: store.time
   }},
   (dispatch) => {return {
-    onTextClick: () => { dispatch(f_text("fuck")); },
+    onTextClick: ()        => { dispatch(action.togleModal()); },
     onSend: (date,message) => { dispatch(action.SEND(date,message)); }
   }}
   

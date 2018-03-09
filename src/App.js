@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import moment from "moment";
 import logo from './logo.svg';
 import './App.css';
 
 import Modal from './Components/Modal';
 import ToDoList from './Components/ToDoList';
 import Week from './Components/Week';
+import Month from './Components/Month';
 
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -14,65 +16,28 @@ import {bindActionCreator} from 'redux';
 import * as action from "./action.js";
 
 
-function f_text (text="qwer") {
-  return {
-    type: 'M',
-    text:text
-  }
-};
 
 
-function Day (props) {
-  var d = 'day';
-  if (props.curentDate.getDate() == props.index) {d = d + " " +"current"}
-  return <div className={d} key={props.index} onClick={()=>{props.onClick(props.index)}}>{props.index}</div>;
-};
 
-function Month (props) {
 
-  var a = props.arr.map((user) => {
-      if (props.nowDate.getDate() == user 
-        && props.nowDate.getMonth() == props.curentDate.getMonth()
-        && props.nowDate.getFullYear() == props.curentDate.getFullYear()) {
-         return <div className="day today" key={user} onClick={()=>props.onClick(user)}>{user}</div>;
-      } 
-      
-      return <Day index={user} key={user} onClick={()=>props.onClick(user)} curentDate={props.curentDate}/>
-      });
 
-  return <ul className="month">{a}</ul>;
-};
-
-function Info (props) {
-  return (
-    <div >
-      <ul>
-
-      </ul>
-    </div>
-    )
-}
 
 class App extends Component {
-
-//handlClick: () => f_add();
-  
-
+ 
   render() {
     return (
       <div className="App">
         {this.props.time.modal && <Modal />}
-        <div>{this.props.time.nowDate.toString()}</div>
-        <div>{this.props.time.curentDate.toString()}</div>
 
-        <button onClick={() => {
-          //console.log(this.props.time.curentMounth());
-          this.props.onTudaClick()}}> + </button>
+        
+        <div>{ moment(this.props.time.curentDate).format('MMMM, YYYY') }</div>
 
-        <button onClick={() => this.props.onSudaClick()}> - </button>
+        <button onClick={ () => this.props.onTudaClick()}> Next month </button>
 
-        <button onClick={() => this.props.onResetClick()}> Reset </button>
-        <button onClick={() => this.props.onCheckDate(1)}> date </button>
+        <button onClick={() => this.props.onSudaClick()}> Prev month </button>
+        
+        <button onClick={() => this.props.onResetClick()}> Current month </button>
+        <button onClick={() => this.props.onCheckDate(1)}> Current day </button>
         <button onClick={() => this.props.onModal()}> Modal </button>
         
         <div className="wrap_m">
@@ -82,11 +47,10 @@ class App extends Component {
                onClick={(date) => this.props.onCheckDate(date)}
                />
 
-          <ToDoList curentDate={this.props.time.curentDate.getDate()+"."+this.props.time.curentDate.getMonth()+"."+
-        this.props.time.curentDate.getFullYear()}/>
+          <ToDoList curentDate={ this.props.time.curentDate.getDate()+"."+this.props.time.curentDate.getMonth()+"."+
+                                 this.props.time.curentDate.getFullYear() } />
 
         </div>
-        <Info />
 
       </div>
     );
@@ -100,11 +64,11 @@ export default connect(
     time: store.time
   }},
   (dispatch) => {return {
-    onTudaClick: () => { dispatch(action.NEXT_MONTH()); },
-    onSudaClick: () => { dispatch(action.PREV_MONTH()); },
-    onResetClick: () => { dispatch(action.RESET()); },
+    onTudaClick: ()     => { dispatch(action.NEXT_MONTH()); },
+    onSudaClick: ()     => { dispatch(action.PREV_MONTH()); },
+    onResetClick: ()    => { dispatch(action.RESET()); },
     onCheckDate: (date) => { dispatch(action.CHECK_CURR_DAY(date)); },
-    onModal: () => { dispatch(f_text()); }
+    onModal: ()         => { dispatch(action.togleModal()); }
   }}
   
   )(App);

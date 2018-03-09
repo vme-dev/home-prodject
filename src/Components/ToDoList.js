@@ -13,7 +13,7 @@ class ToDoList extends React.Component {
 
     render() {
     	var a;
-    	if(this.props.time.doList[this.props.curentDate] == undefined) {
+    	if ( this.props.time.doList[this.props.curentDate] == undefined ) {
     	 a = <li>EMPTY</li>
     	}
     	else { 
@@ -32,7 +32,7 @@ export default connect(
     time: store.time
   }},
   (dispatch) => {return {
-    onTextClick: () => { dispatch(action.f_text("fuck")); }
+    onTextClick: () => { dispatch(action.togleModal()); }
   }}
   
   )(ToDoList);
