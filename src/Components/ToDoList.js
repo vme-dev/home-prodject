@@ -18,7 +18,7 @@ class ToDoList extends React.Component {
     	}
     	else { 
 	    	 a = this.props.time.doList[this.props.curentDate].map((user) => {
-	    		return <li>{user}</li>
+	    		return <li>{user.action}</li>
 	    	});
 	    }
         return 	<ul className="to-do-list">{a}</ul>;

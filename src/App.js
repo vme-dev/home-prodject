@@ -37,7 +37,7 @@ class App extends Component {
         <button onClick={() => this.props.onSudaClick()}> Prev month </button>
         
         <button onClick={() => this.props.onResetClick()}> Current month </button>
-        <button onClick={() => this.props.onCheckDate(1)}> Current day </button>
+        
         <button onClick={() => this.props.onModal()}> Modal </button>
         
         <div className="wrap_m">

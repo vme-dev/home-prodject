@@ -36,8 +36,14 @@ const counter = (state = { index: 0 }, action) => {
 let nD = new Date();
 let timeState = {
     doList: {
-        "22.1.2018": ["Lil Peep", "Lil Pump", "Lil Uzi Vert"],
-        "25.1.2018": ["Lil ", "Lil ", "Lil "]
+        "22.1.2018": [
+        {"action":"lil peep","statu":true},
+        {"action":"lil peep","statu":true}, 
+        {"action":"lil peep","statu":true}],
+        "25.1.2018": [
+        {"action":"lil peep","statu":true}, 
+        {"action":"lil peep","statu":true}, 
+        {"action":"lil peep","statu":true}]
     },
     modal: false,
     nowDate: new Date(),
