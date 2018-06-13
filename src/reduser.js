@@ -33,17 +33,20 @@ const counter = (state = { index: 0 }, action) => {
             return state
     }
 }
+
 let nD = new Date();
 let timeState = {
     doList: {
         "22.1.2018": [
-        {"action":"lil peep","statu":true},
-        {"action":"lil peep","statu":true}, 
-        {"action":"lil peep","statu":true}],
+            { "action": "lil peep", "statu": true },
+            { "action": "lil peep", "statu": true },
+            { "action": "lil peep", "statu": true }
+        ],
         "25.1.2018": [
-        {"action":"lil peep","statu":true}, 
-        {"action":"lil peep","statu":true}, 
-        {"action":"lil peep","statu":true}]
+            { "action": "lil peep", "statu": true },
+            { "action": "lil peep", "statu": true },
+            { "action": "lil peep", "statu": true }
+        ]
     },
     modal: false,
     nowDate: new Date(),
@@ -110,9 +113,11 @@ const time = (state = timeState, action) => {
             {
                 let clon = Object.assign({}, state.doList);
 
-                if (clon[action.date] == undefined) { console.log(clon[action.date]);
-                    clon[action.date] = []; }
-                clon[action.date].push(action.message);
+                if (clon[action.date] == undefined) {
+                    console.log(clon[action.date]);
+                    clon[action.date] = [];
+                }
+                clon[action.date].push({ "action": action.message, "statu": true });
 
                 console.log(clon);
                 return Object.assign({}, state, {
@@ -122,10 +127,6 @@ const time = (state = timeState, action) => {
             }
         case 'togleModal':
             {
-                // if (state.nowDate.getTime() > state.curentDate.getTime()) {
-                //     return state;
-                // };
-
                 return Object.assign({}, state, {
                     modal: !state.modal,
                 });

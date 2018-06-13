@@ -4,7 +4,7 @@ import './Week.css';
 import moment from 'moment';
 
 function WeekDay () {
-	//alert();
+	
 	var a = moment().format("MMM Do YY");
 	return <span>1  {a}</span>
 }
@@ -16,6 +16,7 @@ class Week extends React.Component {
 
 	    return (
 	      <div className="Week">
+	      
 	        <h1>Week</h1>
 			
 			<WeekDay />

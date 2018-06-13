@@ -15,13 +15,6 @@ import {bindActionCreator} from 'redux';
 
 import * as action from "./action.js";
 
-
-
-
-
-
-
-
 class App extends Component {
  
   render() {
@@ -30,16 +23,16 @@ class App extends Component {
         {this.props.time.modal && <Modal />}
 
         
-        <div>{ moment(this.props.time.curentDate).format('MMMM, YYYY') }</div>
-
+        <div className="app_head">{ moment(this.props.time.curentDate).format('MMMM, YYYY') }</div>
+        <div className="btn_wrap">
         <button onClick={ () => this.props.onTudaClick()}> Next month </button>
 
         <button onClick={() => this.props.onSudaClick()}> Prev month </button>
         
         <button onClick={() => this.props.onResetClick()}> Current month </button>
         
-        <button onClick={() => this.props.onModal()}> Modal </button>
-        
+        <button onClick={() => this.props.onModal()}> Add note </button>
+        </div>
         <div className="wrap_m">
           <Month arr={this.props.time.curentMounth()} 
                nowDate={this.props.time.nowDate} 
@@ -71,4 +64,4 @@ export default connect(
     onModal: ()         => { dispatch(action.togleModal()); }
   }}
   
-  )(App);
+)(App);
